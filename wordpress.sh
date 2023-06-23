@@ -109,9 +109,9 @@ main()
 		echo "Docker Compose Already Installed"
         fi
 
-	if [ $# -lt 2 ];then
+	if [ $# -lt 1 ];then
 		echo "Please provide the arguements"
-		echo " USAGE: ./wordpress.sh <command> <sitename>"
+		echo " USAGE: ./wordpress.sh <command>"
 		exit 1
 	fi
 	command=$1
@@ -120,6 +120,11 @@ main()
 	if [ $command == "enable" ] || [ $command == "disable" ]; then
 		enableDisableSite "$command"
 	elif [ $command == "create" ]; then
+		if [ $# -lt 2 ];then
+                echo "Please provide the arguements"
+                echo " USAGE: ./wordpress.sh <command> <sitename>"
+                exit 1
+                fi
 		wordpress $site
 	elif [ $command == "delete" ]; then
 		delete_site
